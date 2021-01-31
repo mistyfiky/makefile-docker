@@ -6,13 +6,13 @@ Template repository with modular Makefile system.
 
 ```shell
 export GHCR_URL='https://ghcr.io'
-export GHCR_USR=''
-export GHCR_PAT=''
-export GHCR_IMG='ghcr.io/mistyfiky/modular-makefile'
+export GHCR_USER=''
+export GHCR_PERSONAL_ACCESS_TOKEN=''
+export GHCR_IMAGE_NAME=''
 DCR_URL=${GHCR_URL} \
-DCR_USERNAME=${GHCR_USR} \
-DCR_PASSWORD=${GHCR_PAT} \
-DOCKER_IMAGE=${GHCR_IMG} \
+DCR_USERNAME=${GHCR_USER} \
+DCR_PASSWORD=${GHCR_PERSONAL_ACCESS_TOKEN} \
+DOCKER_IMAGE=${GHCR_IMAGE_NAME} \
 make
 ```
 
