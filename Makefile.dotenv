@@ -1,0 +1,12 @@
+DOTENV_DIST_PATH = ${ROOT_DIR}/.env.dist
+DOTENV_ENV_PATH = ${ROOT_DIR}/.env
+
+include ${DOTENV_ENV_PATH}
+export
+
+.PHONY: clean-dotenv
+clean-dotenv:
+	$(RM) ${DOTENV_ENV_PATH}
+
+${DOTENV_ENV_PATH}: ${DOTENV_DIST_PATH}
+	envsubst < ${DOTENV_DIST_PATH} | tee ${DOTENV_ENV_PATH}
