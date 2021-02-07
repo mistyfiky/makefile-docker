@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo >&2 '=> checking prerequisites...'
+
+echo >&2 '==> finding basic commands...'
+bad_cmd=false
+for chk_cmd in grep awk envsubst make; do
+    cmd_pth=$(command -v "${chk_cmd}" 2>/dev/null)
+    if [ -z "${cmd_pth}" ]; then
+        echo >&2 "====> command '${chk_cmd}' could not be found"
+        bad_cmd=true
+    else
+        echo >&2 "====> command '${chk_cmd}' found in '${cmd_pth}'"
+    fi
+done
+
+# TODO add validating commands from modular Makefiles
+
+echo >&2 '==> validating required variables...'
+bad_env=false
+env_vars=$(grep -E -h '^.*=\$\{.*\}$' .env.dist | awk -F'=' '{print $1}')
+for chk_env in ${env_vars}; do
+    env_val=${!chk_env}
+    if [ -z "${env_val}" ]; then
+        echo >&2 "====> variable '${chk_env}' is not defined or is empty"
+        bad_env=true
+    else
+        echo >&2 "====> variable '${chk_env}' has value '${env_val}'"
+    fi
+done
+
+if ${bad_env} || ${bad_cmd}; then
+    echo >&2 '=> finished without success'
+    ${bad_env} && exit 22
+    ${bad_cmd} && exit 2
+fi
+
+echo >&2 '=> configuring...'
+
+echo >&2 '==> preparing dotenv file...'
+envsubst <.env.dist | tee >&2 .env
+
+echo >&2 '=> finished successfully'

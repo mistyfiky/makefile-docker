@@ -1,9 +1,0 @@
-include .env
-export
-
-.PHONY: dotenv-clean
-dotenv-clean:
-	rm -f .env
-
-.env: .env.dist
-	envsubst < .env.dist | tee .env

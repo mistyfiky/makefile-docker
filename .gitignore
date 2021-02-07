@@ -1,2 +1,4 @@
 /.env
+/.docker/*
+!/.docker/.gitkeep
 /docker-tag-current
