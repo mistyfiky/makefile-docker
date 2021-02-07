@@ -18,6 +18,17 @@ done
 
 # TODO add validating commands from modular Makefiles
 
+echo >&2 '==> checking for existing dotenv file...'
+if [ -f .env ]; then
+    echo >&2 '====> sourcing existing dotenv file...'
+    cat >&2 .env
+    set -a
+    source .env
+    set +a
+else
+    echo >&2 '====> no existing dotenv file'
+fi
+
 echo >&2 '==> validating required variables...'
 bad_env=false
 env_vars=$(grep -E -h '^.*=\$\{.*\}$' .env.dist | awk -F'=' '{print $1}')

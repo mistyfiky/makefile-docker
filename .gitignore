@@ -1,4 +1,4 @@
 /.env
-/.docker/*
-!/.docker/.gitkeep
-/docker-tag-current
+# docker
+/.docker/config.json
+/.docker/current-tag

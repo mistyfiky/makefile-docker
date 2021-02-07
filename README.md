@@ -1,6 +1,6 @@
-# Modular Makefile template
+# Project with Makefile template
 
-Template repository with modular Makefile system.
+Project with Makefile template repository.
 
 ## Prerequisites
 
