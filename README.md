@@ -1,6 +1,4 @@
-# Project with Makefile template
-
-Project with Makefile template repository.
+# Docker project with Makefile template
 
 ## Prerequisites
 
