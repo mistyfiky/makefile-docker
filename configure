@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
+REQUIRED_CMDS="docker"
+
 set -e
 
 echo >&2 '=> checking prerequisites...'
 
 echo >&2 '==> finding basic commands...'
 bad_cmd=false
-for chk_cmd in grep awk envsubst make; do
-    cmd_pth=$(command -v "${chk_cmd}" 2>/dev/null)
+for chk_cmd in grep awk envsubst make ${REQUIRED_CMDS}; do
+    cmd_pth=$(command -v "${chk_cmd}" 2>/dev/null || true)
     if [ -z "${cmd_pth}" ]; then
         echo >&2 "====> command '${chk_cmd}' could not be found"
         bad_cmd=true
